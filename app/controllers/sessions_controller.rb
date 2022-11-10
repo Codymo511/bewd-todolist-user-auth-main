@@ -43,3 +43,17 @@ class SessionsController < ApplicationController
         end
       end
     end
+
+  end
+    def destroy
+      token = cookies.permanent.signed[:todolist_session_token]
+      session = Session.find_by(token: token)
+
+      if session and session.destroy
+        render json: {
+          success: true
+        }
+      end
+    end
+  end
+
